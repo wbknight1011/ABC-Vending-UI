@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { WarehouseTableComponent } from './warehouse-table/warehouse-table.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppMaterialModule } from './app.material-module';
+import { VendingTableComponent } from './vending-table/vending-table.component';
+import { ProductsTableComponent } from './products-table/products-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WarehouseTableComponent
+    WarehouseTableComponent,
+    VendingTableComponent,
+    ProductsTableComponent
   ],
   imports: [
     BrowserModule,

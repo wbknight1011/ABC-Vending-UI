@@ -1,4 +1,36 @@
-.table
-{
-  width:100%;
+button:hover{
+  cursor: pointer;
 }
+.warehouse-table{
+  width: 1200px;
+}
+
+.mat-column-name{
+  width: 35%;
+  text-align: center;
+}
+
+.mat-column-location{
+  width: 35%;
+  text-align: center;
+}
+
+.mat-column-vendingMachineCount{
+  width: 15%;
+}
+
+.mat-column-productCount{
+  width: 15%;
+  text-align: center;
+}
+
+th.mat-header-cell:nth-child(n){
+  font-size: large;
+  font-weight: bold;
+}
+
+.mat-row:hover{
+  opacity: 0.8;
+  background-color: rgba(179, 173, 173, 0.851);
+}
+

@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit
+{
   title = 'ABC-Vending';
+
+  constructor(private appRouter: AppRoutingModule){
+    
+  }
+  ngOnInit(): void {
+    
+  }
 }

@@ -1,4 +1,21 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div class="card highlight-card card-small">
+
+    <svg id="loading-truck" xmlns="http://www.w3.org/2000/svg" width="101.678" height="101.678" viewBox="0 0 101.678 101.678">
+      <title>Rocket Ship</title>
+      <g id="Group_83" data-name="Group 83" transform="translate(-141 -696)">
+        <circle id="Ellipse_8" data-name="Ellipse 8" cx="50.839" cy="50.839" r="50.839" transform="translate(141 696)" fill="#eeb111"/>
+        <g transform="translate(155 765) scale(4)" fill="white">
+          <text>&#xf494;</text>
+        </g>
+      </g>
+    </svg>
+
+    <span>Warehouses</span>
+</div>
+
+<div style="padding-top: 30px;"></div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 warehouse-table">
    
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Warehouse Name</th>
@@ -11,8 +28,21 @@
     </ng-container>
 
     <ng-container matColumnDef="vendingMachineCount">
-        <th mat-header-cell *matHeaderCellDef>Vending Machine Stock</th>
-        <td mat-cell *matCellDef="let element"> {{element.vendingMachineCount}}</td>
+        <th mat-header-cell *matHeaderCellDef>Machine Stock</th>
+        <td mat-cell *matCellDef="let element">
+             <button routerLink="vending-machines" style="padding-top: 5px; padding-bottom: 3px;">
+                 <i class="fa-solid fa-shop fa-xl"></i>
+             </button> {{element.vendingMachineCount}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="productCount">
+        <th mat-header-cell *matHeaderCellDef>Products</th>
+        <td mat-cell *matCellDef="let element">
+            <button routerLink="products" style="padding-top: 5px; padding-bottom: 3px;">
+                <i class="fa-solid fa-jar fa-xl"></i>
+            </button>
+            {{element.productCount}}
+        </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

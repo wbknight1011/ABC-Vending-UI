@@ -20,4 +20,12 @@ describe('VendingTableComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Should Render Component Span Title', () => {
+    const fixture = TestBed.createComponent(VendingTableComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('span')?.textContent).toContain('Vending Machines');
+  });
+
 });

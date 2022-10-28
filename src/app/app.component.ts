@@ -8,10 +8,10 @@ import { AppRoutingModule } from './app-routing.module';
 })
 export class AppComponent implements OnInit
 {
-  title = 'ABC-Vending';
+  title = 'ABC Vending';
 
-  constructor(private appRouter: AppRoutingModule){
-    
+  constructor(){
+
   }
   ngOnInit(): void {
     

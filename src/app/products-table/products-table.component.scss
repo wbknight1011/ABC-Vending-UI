@@ -1,0 +1,24 @@
+.product-table{
+    width: 1200px;
+}
+
+th.mat-header-cell{
+    font-size: large;
+    font-weight: bold;
+}
+
+th.mat-header-cell.mat-column-stock{
+    padding-right: 3%;
+}
+
+td.mat-cell.mat-column-stock{
+    padding-right: 3%;
+}
+
+.mat-column-warehouseName{
+    text-align: left;
+}
+
+.mat-column-stock{
+    text-align: right;
+}

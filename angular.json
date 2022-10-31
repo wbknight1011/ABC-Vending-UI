@@ -72,7 +72,8 @@
               "browserTarget": "ABC-Vending-UI:build:production"
             },
             "development": {
-              "browserTarget": "ABC-Vending-UI:build:development"
+              "browserTarget": "ABC-Vending-UI:build:development",
+              "ssl": true
             }
           },
           "defaultConfiguration": "development"

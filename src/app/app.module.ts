@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,13 +15,14 @@ import { ProductsTableComponent } from './products-table/products-table.componen
     AppComponent,
     WarehouseTableComponent,
     VendingTableComponent,
-    ProductsTableComponent
+    ProductsTableComponent,    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AppMaterialModule
+    AppMaterialModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

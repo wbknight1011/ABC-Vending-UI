@@ -1,23 +1,53 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common'
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, retry, subscribeOn, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-products-table',
   templateUrl: './products-table.component.html',
   styleUrls: ['./products-table.component.scss']
 })
-export class ProductsTableComponent implements AfterViewInit {
-  productSource = new MatTableDataSource<Product>(hardCodedProducts);  
-  displayedColumns : string [] = ['name', 'warehouseName', 'category', 'cost', 'stock'];
+export class ProductsTableComponent implements AfterViewInit, OnInit {
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin':'https://localhost:7195'
+    })
+  };
   
-  constructor(private _liveAnnouncer: LiveAnnouncer) {}
+  apiProducts: Product[] = []; 
+  apiProductSource = new MatTableDataSource<Product>;
+
+  warehouseName = '';
+  displayedColumns : string [] = ['name', 'category', 'cost', 'stock'];
+  
+  constructor(private _liveAnnouncer: LiveAnnouncer, private location: Location, private http: HttpClient) 
+  {
+       
+  }
 
   @ViewChild(MatSort) sort!: MatSort;  
 
+  ngOnInit()
+  {
+    var state = this.location.getState();
+    this.getProducts(state); 
+    this.setWarehouseName(state);
+    
+  }
+
   ngAfterViewInit() {
-    this.productSource.sort = this.sort;
+    
+      
+  }
+
+  setWarehouseName(state: any) {
+    var name = state.warehouseName;
+    this.warehouseName = name;
   }
 
   announceSortChange(sortState: Sort) 
@@ -30,6 +60,31 @@ export class ProductsTableComponent implements AfterViewInit {
     {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  async getProducts(state: any){
+    this.http
+      .get<Product[]>(`https://localhost:7195/api/Product/${state.warehouseId}`, this.httpOptions)
+      .pipe(retry(0), catchError(this.handleError))
+      .subscribe((data) => {
+        console.log(data);
+        this.apiProducts = data;
+        this.apiProductSource = new MatTableDataSource<Product>(this.apiProducts);
+        this.apiProductSource.sort = this.sort;
+      });
+  }
+
+  handleError(error: any){
+    let errorMessage = '';
+    if(error.error instanceof ErrorEvent){
+      errorMessage = error.error.errorMessage;
+    }
+    else{
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.messgae}`;
+    }
+    return throwError(() => {
+      return errorMessage;
+    });
   }
 }
 
@@ -44,14 +99,3 @@ export interface Product
   cost: number;
   stock: number;
 }
-
-const hardCodedProducts : Product[] = [
-  { id: '001', vendingMachineId: '001', warehouseId: '001', warehouseName: 'First Opened Warehouse LLC', name: 'Pepsi', category: 'Soda', cost: 1.25, stock: 1255 },
-  { id: '002', vendingMachineId: '001', warehouseId: '001', warehouseName: 'First Opened Warehouse LLC', name: 'Coke', category: 'Soda', cost: 1.25, stock: 850 },
-  { id: '003', vendingMachineId: '001', warehouseId: '001', warehouseName: 'First Opened Warehouse LLC', name: 'Dr. Pepper', category: 'Soda', cost: 1.25, stock: 715 },
-  { id: '004', vendingMachineId: '001', warehouseId: '001', warehouseName: 'First Opened Warehouse LLC', name: 'Mountain Dew', category: 'Soda', cost: 1.25, stock: 225 },
-  { id: '005', vendingMachineId: '001', warehouseId: '001', warehouseName: 'First Opened Warehouse LLC', name: 'Doritos', category: 'Chips', cost: 1.25, stock: 400 },
-  { id: '006', vendingMachineId: '001', warehouseId: '001', warehouseName: 'First Opened Warehouse LLC', name: 'Cheetos', category: 'Chips', cost: 1.25, stock: 568 },
-  { id: '007', vendingMachineId: '001', warehouseId: '001', warehouseName: 'First Opened Warehouse LLC', name: 'Honey Bun', category: 'Confectionary', cost: 1.25, stock: 745 },
-  { id: '008', vendingMachineId: '001', warehouseId: '001', warehouseName: 'First Opened Warehouse LLC', name: 'Powdered Donuts', category: 'Confectionary', cost: 1.25, stock: 385 },
-]

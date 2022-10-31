@@ -15,16 +15,16 @@
 
 <div style="padding-top: 30px;"></div>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 warehouse-table">
+<table mat-table [dataSource]="apiData" class="mat-elevation-z8 warehouse-table">
    
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Warehouse Name</th>
-        <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+        <td mat-cell *matCellDef="let element"> {{element.warehouse.name}}</td>
     </ng-container>
 
     <ng-container matColumnDef="location">
         <th mat-header-cell *matHeaderCellDef>Location</th>
-        <td mat-cell *matCellDef="let element"> {{element.location}}</td>
+        <td mat-cell *matCellDef="let element"> {{element.warehouse.location}}</td>
     </ng-container>
 
     <ng-container matColumnDef="vendingMachineCount">
@@ -38,7 +38,7 @@
     <ng-container matColumnDef="productCount">
         <th mat-header-cell *matHeaderCellDef>Products</th>
         <td mat-cell *matCellDef="let element">
-            <button mat-fab routerLink="products" style="padding-top: 5px; padding-bottom: 3px;">
+            <button mat-fab routerLink="products" [state]="{warehouseId : element.warehouse.id, warehouseName : element.warehouse.name}" style="padding-top: 5px; padding-bottom: 3px;">
                 <i class="fa-solid fa-jar fa-xl"></i>
             </button>
             {{element.productCount}}

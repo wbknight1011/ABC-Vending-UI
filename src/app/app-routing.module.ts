@@ -4,7 +4,7 @@ import { WarehouseTableComponent } from './warehouse-table/warehouse-table.compo
 import { VendingTableComponent } from './vending-table/vending-table.component';
 import { ProductsTableComponent } from './products-table/products-table.component';
 
-const routes: Routes = 
+export const routes: Routes = 
 [
   { path: '', component: WarehouseTableComponent },
   { path: 'vending-machines', component: VendingTableComponent },
